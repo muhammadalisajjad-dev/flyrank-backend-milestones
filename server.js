@@ -1,1 +1,21 @@
-const express = require('express'); const app = express(); const PORT = 3000; app.use(express.json()); app.get('/', (req, res) = res.json({ status: "active", message: "Welcome to Muhammad Ali Sajjad's FlyRank Backend API" }); }); app.get('/api/status', (req, res) = res.json({ intern: "Muhammad Ali Sajjad", track: "Backend AI Engineering", week: 1, deployed: false }); }); app.listen(PORT, () = console.log(`Server running at http://localhost:${PORT}`); }); 
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Task API',
+    version: '1.0',
+    endpoints: ['/tasks']
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
