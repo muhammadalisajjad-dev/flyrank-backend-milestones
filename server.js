@@ -1,8 +1,12 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const openApiSpec = require('./openapi.json');
+
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
 
 let tasks = [
   { id: 1, title: 'Buy groceries', done: false },
@@ -40,20 +44,16 @@ app.post('/tasks', (req, res) => {
   res.status(201).json(task);
 });
 
-// Stage 4
 app.put('/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const index = tasks.findIndex(t => t.id === id);
   if (index === -1) return res.status(404).json({ error: `Task ${id} not found` });
-
   const { title, done } = req.body;
   if (title !== undefined && title.trim() === '') {
     return res.status(400).json({ error: 'Title cannot be empty' });
   }
-
   if (title !== undefined) tasks[index].title = title.trim();
   if (done !== undefined) tasks[index].done = done;
-
   res.json(tasks[index]);
 });
 
@@ -67,4 +67,5 @@ app.delete('/tasks/:id', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Swagger UI at http://localhost:${PORT}/docs`);
 });
