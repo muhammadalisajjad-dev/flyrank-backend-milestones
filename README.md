@@ -41,3 +41,11 @@ Content-Type: application/json; charset=utf-8
 
 - No database yet — data resets on restart. That's the lesson; BE-04 fixes it with Postgres + Docker.
 - Service and routes do not know about storage — swapping the data layer next week changes only one file.
+
+
+## BE-02: SQLite Integration
+
+- Added SQLite database using `better-sqlite3`
+- Tasks are persisted across server restarts
+- DB file: `tasks.db`
+- Manual SQL queries verified via DB Browser for SQLite
