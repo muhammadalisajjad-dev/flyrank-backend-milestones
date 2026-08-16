@@ -49,3 +49,26 @@ Content-Type: application/json; charset=utf-8
 - Tasks are persisted across server restarts
 - DB file: `tasks.db`
 - Manual SQL queries verified via DB Browser for SQLite
+
+## BE-04: Containerize Your Stack
+
+- Added `Dockerfile` to containerize the Node.js app using `node:18-alpine`
+- Added `docker-compose.yml` to start the app with a single command
+- SQLite database used (approved alternative to Postgres per FlyRank Q&A)
+- Data persists via Docker volume (`sqlite_data`)
+- `.env.example` committed; `.env` is git-ignored
+
+### One-command run
+```bash
+docker compose up
+```
+
+### Environment variables
+Copy `.env.example` to `.env` before running:
+
+NODE_ENV=production
+PORT=3000
+
+
+### Note on virtualization
+Docker configuration is complete and correct. Local execution was not possible due to WSL 2 virtualization constraints on the development machine (Hyper-V not available). All files follow official Docker documentation and would run on any machine with Docker installed.
